@@ -31,13 +31,14 @@ RUN  apt update && apt install wget gnupg gnupg2 -y && \
     apt update && apt install nginx supervisor procps -y && \
     apt-get clean -y
 
-# Install New Relic
+# New Relic Installation
 RUN cd /opt/ && \
     wget https://download.newrelic.com/php_agent/release/newrelic-php5-9.16.0.295-linux.tar.gz -O newrelic-php5-9.16.0.295-linux.tar.gz && \
     tar -xzf newrelic-php5-9.16.0.295-linux.tar.gz && \
     cd /opt/newrelic-php5-9.16.0.295-linux && \
     ./newrelic-install install
 
+# COPY Configs
 COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY config/nginx.conf /etc/nginx/nginx.conf
 COPY config/nginx-vhost.conf /etc/nginx/conf.d/default.conf
